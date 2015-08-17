@@ -5,7 +5,7 @@ import heat1d
 
 plt.yscale("log")
 
-runner = heat1d.Heat1dRunner()
+runner = heat1d.Heat1D_SDC()
 def case(dof):
     runner.num_dofs = dof
     residuals = runner.absolute_residuals(runner.run())

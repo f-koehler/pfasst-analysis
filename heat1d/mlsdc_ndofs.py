@@ -5,13 +5,12 @@ import heat1d
 
 plt.yscale("log")
 
-runner = heat1d.Heat1dRunner()
-runner.variant = "mlsdc"
+runner = heat1d.Heat1D_MLSDC()
 def case(dof):
     runner.num_dofs = dof
-    residuals = runner.absolute_residuals(runner.run())
-    iters     = np.arange(1, len(residuals)+1)
-    plt.plot(iters, residuals, ".-", label=str(dof)+" dof")
+    coarse, fine = runner.absolute_residuals(runner.run())
+    iters     = np.arange(1, len(fine)+1)
+    plt.plot(iters, fine, ".-", label=str(dof)+" dof")
 
 plt.title(
     r"Heat1D with MLSDC\\"+
