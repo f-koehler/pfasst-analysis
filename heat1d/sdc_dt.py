@@ -15,4 +15,4 @@ for dt in dts:
 
 plt.xlabel("$t$")
 plt.ylabel("absolute residuals")
-plt.savefig("plot/heat1d/sdc_dt")
+plt.savefig("plot/heat1d/sdc_dt.pdf")
