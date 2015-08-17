@@ -2,6 +2,7 @@ import re
 import subprocess
 
 regex_abs_res = re.compile(r"t\[3\]\=\d+\.\d+(e(\-|\+)\d+)?\s+\|abs\s+residual\|\s+\=\s+(?P<abs_res>\d+\.\d+(e(\-|\+)\d+)?)")
+regex_next = re.compile(r"Advancing 1 time step with dt=\d+\.\d+(e(\-|\+)\d+)? to t=(?P<t>\d+\.\d+(e(\-|\+)\d+)?)")
 
 class Heat1D_SDC:
     dt            = 0.5
@@ -35,6 +36,24 @@ class Heat1D_SDC:
             if m:
                 abs_res.append(float(m.groupdict()["abs_res"]))
         return abs_res
+
+    def convergence(self, output):
+        t = []
+        r = []
+        started = False
+        for l in output:
+            m = regex_next.search(l)
+            if m:
+                t.append(float(m.groupdict()["t"]))
+                r.append(0)
+                started = True
+                continue
+            if not started:
+                continue
+            m = regex_abs_res.search(l)
+            if m:
+                r[-1] = float(m.groupdict()["abs_res"])
+        return (t, r)
 
 class Heat1D_MLSDC:
     dt            = 0.5

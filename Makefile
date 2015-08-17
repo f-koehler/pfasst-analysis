@@ -1,6 +1,6 @@
 PY=python3
 
-SCRIPTS=heat1d/sdc_nodes.py heat1d/mlsdc_nodes.py heat1d/sdc_ndofs.py heat1d/mlsdc_ndofs.py heat1d/mlsdc_coarse_factor.py
+SCRIPTS=heat1d/sdc_nodes.py heat1d/mlsdc_nodes.py heat1d/sdc_ndofs.py heat1d/mlsdc_ndofs.py heat1d/mlsdc_coarse_factor.py heat1d/sdc_dt.py
 PLOTS=$(addprefix plot/,$(patsubst %.py,%.pdf,${SCRIPTS}))
 
 all: ${PLOTS}
