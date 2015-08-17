@@ -1,4 +1,4 @@
-#backend:        Qt4Agg
+backend:        Qt5Agg
 text.usetex:    True
 axes.grid:      True
 #figure.figsize: 6, 4.5
