@@ -1,11 +1,12 @@
 PY=python3
 
-PLOTS=$(addsuffix .pdf,sdc_heat1d_ndofs sdc_heat1d_nodes mlsdc_heat1d_ndofs mlsdc_heat1d_nodes)
+SCRIPTS=heat1d/sdc_nodes.py heat1d/mlsdc_nodes.py heat1d/sdc_ndofs.py heat1d/mlsdc_ndofs.py
+PLOTS=$(addprefix plot/,$(patsubst %.py,%.pdf,${SCRIPTS}))
 
 all: ${PLOTS}
-%.pdf: %.py
+plot/%.pdf: %.py matplotlibrc matplotlib.tex
 	${PY} $<
 
 .PHONY: clean
 clean:
-	rm -f *.pdf
+	rm -f ${PLOTS}
