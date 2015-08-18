@@ -1,61 +1,15 @@
 import re
+import os
+import os.path
 import subprocess
+import hashlib
+import numpy as np
 
 regex_abs_res = re.compile(r"t\[3\]\=\d+\.\d+(e(\-|\+)\d+)?\s+\|abs\s+residual\|\s+\=\s+(?P<abs_res>\d+\.\d+(e(\-|\+)\d+)?)")
 regex_next = re.compile(r"Advancing 1 time step with dt=\d+\.\d+(e(\-|\+)\d+)? to t=(?P<t>\d+\.\d+(e(\-|\+)\d+)?)")
 
-class Heat1D_SDC:
-    dt            = 0.5
-    t_end         = 0.5
-    num_iters     = 20
-    num_dofs      = 64
-    coarse_factor = 1
-    num_nodes     = 3
-    abs_res_tol   = 1e-10
+class Heat1DRunner:
     variant       = "sdc"
-
-    def run(self):
-        cmd = [
-            "--dt", str(self.dt),
-            "--tend", str(self.t_end),
-            "--num_iters", str(self.num_iters),
-            "--num_dofs", str(self.num_dofs),
-            "--coarse_factor", str(self.coarse_factor),
-            "--num_nodes", str(self.num_nodes),
-            "--abs_res_tol", str(self.abs_res_tol),
-            "--nocolor",
-        ]
-        cmd = ["bin/heat1d_"+self.variant]+cmd
-        output = subprocess.check_output(cmd).decode().strip().splitlines()
-        return output
-
-    def absolute_residuals(self, output):
-        abs_res  = []
-        for l in output:
-            m = regex_abs_res.search(l)
-            if m:
-                abs_res.append(float(m.groupdict()["abs_res"]))
-        return abs_res
-
-    def convergence(self, output):
-        t = []
-        r = []
-        started = False
-        for l in output:
-            m = regex_next.search(l)
-            if m:
-                t.append(float(m.groupdict()["t"]))
-                r.append(0)
-                started = True
-                continue
-            if not started:
-                continue
-            m = regex_abs_res.search(l)
-            if m:
-                r[-1] = float(m.groupdict()["abs_res"])
-        return (t, r)
-
-class Heat1D_MLSDC:
     dt            = 0.5
     t_end         = 0.5
     num_iters     = 20
@@ -63,9 +17,26 @@ class Heat1D_MLSDC:
     coarse_factor = 1
     num_nodes     = 3
     abs_res_tol   = 1e-10
-    variant       = "mlsdc"
+
+    def parameter_hash(self):
+        s = "{};{};{};{};{};{};{};{}".format(
+            self.variant,
+            self.dt,
+            self.t_end,
+            self.num_iters,
+            self.num_dofs,
+            self.coarse_factor,
+            self.num_nodes,
+            self.abs_res_tol
+        )
+        data = (None, None, None, None)
+        h = hashlib.sha1(s.encode())
+        return h.hexdigest()
 
     def run(self):
+        name = self.parameter_hash()
+        name_coarse = name+"_coarse"
+        
         cmd = [
             "--dt", str(self.dt),
             "--tend", str(self.t_end),
@@ -74,21 +45,18 @@ class Heat1D_MLSDC:
             "--coarse_factor", str(self.coarse_factor),
             "--num_nodes", str(self.num_nodes),
             "--abs_res_tol", str(self.abs_res_tol),
+            "--out_file", name,
             "--nocolor",
         ]
         cmd = ["bin/heat1d_"+self.variant]+cmd
-        output = subprocess.check_output(cmd).decode().strip().splitlines()
-        return output
-    
-    def absolute_residuals(self, output):
-        abs_res_coarse = []
-        abs_res_fine   = []
+        subprocess.check_output(cmd)
 
-        for l in output:
-            m = regex_abs_res.search(l)
-            if m:
-                if l.find("LVL_COARSE") >= 0:
-                    abs_res_coarse.append(float(m.groupdict()["abs_res"]))
-                else:
-                    abs_res_fine.append(float(m.groupdict()["abs_res"]))
-        return (abs_res_coarse, abs_res_fine)
+        t, r = np.loadtxt(name, unpack=True)
+        os.remove(name)
+        
+        t_coarse = []
+        r_coarse = []
+        if os.path.exists(name+"_coarse"):
+            t, r = np.loadtxt(name+"_coarse", unpack=True)
+            os.remove(name+"_coarse")
+        return (t, r, t_coarse, r_coarse) 
