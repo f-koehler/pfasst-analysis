@@ -1,4 +1,0 @@
-[submodule "pfasst"]
-	path = pfasst
-	url = https://github.com/torbjoernk/PFASST.git
-	branch = v2
