@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import heat1d
 
 runner = heat1d.Heat1D_SDC()
+runner.t_end = 0.5
 
 def case(dt):
     runner.dt = dt

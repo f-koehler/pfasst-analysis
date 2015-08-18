@@ -21,12 +21,8 @@ plt.title(
     r"$, $\mathrm{tol}=\num{"+str(runner.abs_res_tol)+"}$"
 )
 
-case(16)
-case(32)
 case(64)
 case(128)
-case(256)
-case(512)
 
 plt.xlabel("iteration")
 plt.ylabel("absolute residuals")

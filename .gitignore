@@ -1,3 +1,4 @@
 *.pdf
 .log
 __pycache__/
+plot/

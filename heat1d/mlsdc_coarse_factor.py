@@ -18,7 +18,6 @@ plt.plot(np.arange(0, len(res)), res, "v-", label="SDC")
 
 case_mlsdc(1)
 case_mlsdc(2)
-case_mlsdc(3)
 
 plt.xlabel("iteration")
 plt.ylabel("absolute residuals")
