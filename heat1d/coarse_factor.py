@@ -40,5 +40,4 @@ plt.xlabel("iteration")
 plt.ylabel("absolute residuals")
 
 plt.legend()
-plt.show()
 plt.savefig("plot/heat1d/coarse_factor.pdf")
