@@ -2,27 +2,14 @@ import numpy as np
 from matplotlib import pyplot as plt
 import heat1d
 
-plt.yscale("log")
-
 runner = heat1d.Heat1DRunner()
 runner.t_end = 0.5
 
 def case(dt):
     runner.dt = dt
     t, r, _, _ = runner.run()
-    last_t = t[0]
-    x = [t[0]]
-    y = [r[0]]
-
-    for i in range(0, len(t)):
-        if t[i] != last_t:
-            last_t = t[i]
-            x.append(t[i])
-            y.append(r[i])
-        else:
-            y[-1] = r[i]
-
-    plt.plot(x, y, ".-", label="dt="+str(dt))
+    uniq, inv = np.unique(t, return_inverse=True)
+    plt.plot(uniq, np.bincount(inv), ".-", label="dt="+str(dt))
 
 plt.title(r"SDC@Heat1D, "
         +r"$t_{\mathrm{end}}="+str(runner.t_end)
@@ -33,8 +20,9 @@ plt.title(r"SDC@Heat1D, "
         +r"$ Nodes"
 )
 
-plt.xlabel(r"$\mathrm{d}t$")
+plt.xlabel("needed iterations")
 plt.ylabel("res")
+plt.ylim(0, 8)
 
 case(0.001)
 case(0.005)
