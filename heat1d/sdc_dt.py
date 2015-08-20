@@ -7,8 +7,8 @@ runner.t_end = 0.5
 
 def case(dt):
     runner.dt = dt
-    t, r, _, _ = runner.run()
-    uniq, inv = np.unique(t, return_inverse=True)
+    t1, r1, rr1, e1, re1, t2, r2, rr2, e2, re2 = runner.run()
+    uniq, inv = np.unique(t1, return_inverse=True)
     plt.plot(uniq, np.bincount(inv), ".-", label="dt="+str(dt))
 
 plt.title(r"SDC@Heat1D, "

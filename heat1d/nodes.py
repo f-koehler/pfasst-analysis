@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import heat1d
 
-plt.yscale("log")
+# plt.yscale("log")
 
 runner = heat1d.Heat1DRunner()
 
@@ -10,17 +10,24 @@ def case_sdc(nodes):
     runner.num_nodes = nodes
     runner.variant   = "sdc"
     runner.coarse_factor = 1
-    t, r, _, _ = runner.run()
-    i = np.arange(0, len(r))
-    plt.plot(i, r, ".-", label="SDC,"+str(nodes)+" Nodes")
+    t1, r1, rr1, e1, re1, t2, r2, rr2, e2, re2 = runner.run()
+    i = np.arange(0, len(e1))
+    plt.plot(i, e1, ".-", label="SDC,"+str(nodes)+" Nodes")
 
 def case_mlsdc(nodes):
     runner.num_nodes = nodes
     runner.variant   = "mlsdc"
     runner.coarse_factor = 2
-    t1, r1, t2, r2 = runner.run()
-    i = np.arange(0, len(r1))
-    plt.plot(i, r1, ".-", label="MLSDC,"+str(nodes)+" Nodes")
+    t1, r1, rr1, e1, re1, t2, r2, rr2, e2, re2 = runner.run()
+    i = np.arange(0, len(e1))
+    plt.plot(i, e1, ".-", label="MLSDC,"+str(nodes)+" Nodes")
+
+def theory(order):
+    b = np.log(0.4)
+    x = np.linspace(0, 18, 100)
+    y = np.exp(-order*x+b)
+    plt.plot(x, y, "--", label=r"$e^{-"+str(order)+"\cdot i+b}$")
+
 
 plt.title(r"Heat1D,"
         +r"$\mathrm{d}t="+str(runner.dt)
@@ -35,9 +42,12 @@ case_sdc(3)
 case_sdc(5)
 case_mlsdc(3)
 case_mlsdc(5)
+# theory(1)
+# theory(2)
+# theory(3)
 
-plt.xlabel("iteration")
-plt.ylabel("absolute residuals")
+plt.xlabel("iteration $i$")
+plt.ylabel("absolute errors")
 
 plt.legend()
 plt.savefig("plot/heat1d/nodes.pdf")

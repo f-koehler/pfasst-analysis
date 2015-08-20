@@ -5,9 +5,6 @@ import subprocess
 import hashlib
 import numpy as np
 
-regex_abs_res = re.compile(r"t\[3\]\=\d+\.\d+(e(\-|\+)\d+)?\s+\|abs\s+residual\|\s+\=\s+(?P<abs_res>\d+\.\d+(e(\-|\+)\d+)?)")
-regex_next = re.compile(r"Advancing 1 time step with dt=\d+\.\d+(e(\-|\+)\d+)? to t=(?P<t>\d+\.\d+(e(\-|\+)\d+)?)")
-
 class Heat1DRunner:
     variant       = "sdc"
     dt            = 0.5
@@ -51,12 +48,15 @@ class Heat1DRunner:
         cmd = ["bin/heat1d_"+self.variant]+cmd
         subprocess.check_output(cmd)
 
-        t, r = np.loadtxt(name, unpack=True)
+        t, r, rr, e, re = np.loadtxt(name, unpack=True)
         os.remove(name)
         
         t_coarse = []
         r_coarse = []
+        rr_coarse = []
+        e_coarse = []
+        re_coarse = []
         if os.path.exists(name+"_coarse"):
-            t, r = np.loadtxt(name+"_coarse", unpack=True)
+            t_coarse, r_coarse, rr_coarse, e_coarse, re_coarse = np.loadtxt(name+"_coarse", unpack=True)
             os.remove(name+"_coarse")
-        return (t, r, t_coarse, r_coarse) 
+        return (t, r, rr, e, re, t_coarse, r_coarse, rr_coarse, e_coarse, re_coarse)
