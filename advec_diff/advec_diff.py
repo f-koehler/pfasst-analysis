@@ -3,13 +3,19 @@ import logging
 import numpy as np
 import os
 import os.path
-import re
 import subprocess
 import shlex
-
+import shutil
 
 logging.basicConfig(level=logging.DEBUG)
 
+
+class CallgrindResult:
+    raw = None
+
+class GprofResult:
+    raw = None
+    flat = None
 
 class AdvecDiffRunner:
     variant = "sdc"
@@ -67,11 +73,28 @@ class AdvecDiffRunner:
     def run(self):
         cmd = self.cmd()
 
-        logging.debug("Execute: "+" ".join(cmd))
+        logging.debug("Execute: " + " ".join(cmd))
         subprocess.check_output(cmd, cwd="bin")
 
-    def callgrind(self):
-        pass
+    def run_callgrind(self):
+        name = self.parameter_hash() + ".callgrind"
+        cmd = ["valgrind", "--tool=callgrind", "--callgrind-out-file=" + name] + self.cmd()
+        logging.debug("Execute: " + " ".join(cmd))
+        subprocess.call(cmd, cwd="bin")
+        result = CallgrindResult()
+        with open("bin/"+name) as f:
+            result.raw = f.read()
+        return result
+
+    def run_gprof(self):
+        name = self.parameter_hash() + ".gprof"
+        cmd = self.cmd()
+        cmd[0] = "gprof_"+self.cmd()
+        subprocess.call(cmd)
+        shutil.move("bin/gmon.out", "bin/"+name)
+        result = GprofResult()
+        with open("bin/"+name) as f:
+            result.raw = f.read()
 
     def results(self):
         file_name = "bin/"+self.parameter_hash()
@@ -92,6 +115,11 @@ class AdvecDiffRunner:
             os.remove(file_name)
 
         file_name += "_coarse"
+        logging.debug("Remove: "+file_name)
+        if os.path.exists(file_name):
+            os.remove(file_name)
+
+        file_name = "bin/"+self.parameter_hash()+".callgrind"
         logging.debug("Remove: "+file_name)
         if os.path.exists(file_name):
             os.remove(file_name)
