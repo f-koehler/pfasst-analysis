@@ -11,6 +11,7 @@ def case(dt):
     t, r, rr, e, re = runner.results()
     uniq, inv = np.unique(t, return_inverse=True)
     plt.plot(uniq, np.bincount(inv), "-", label="dt={}".format(dt))
+    runner.remove_files()
 
 plt.title(
     (

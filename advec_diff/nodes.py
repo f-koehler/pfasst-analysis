@@ -15,6 +15,7 @@ def case_sdc(nodes):
     t, r, rr, e, re = runner.results()
     i = np.arange(0, len(e))
     plt.plot(i, e, ".-", label="SDC,"+str(nodes)+" Nodes")
+    runner.remove_files()
 
 
 def case_mlsdc(nodes):
@@ -25,6 +26,7 @@ def case_mlsdc(nodes):
     t, r, rr, e, re = runner.results()
     i = np.arange(0, len(e))
     plt.plot(i, e, ".-", label="MLSDC,"+str(nodes)+" Nodes")
+    runner.remove_files()
 
 
 def theory(order):
@@ -32,6 +34,7 @@ def theory(order):
     x = np.linspace(0, 18, 100)
     y = np.exp(-order*x+b)
     plt.plot(x, y, "--", label=r"$e^{-"+str(order)+"\cdot i+b}$")
+    runner.remove_files()
 
 
 plt.title(

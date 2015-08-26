@@ -14,6 +14,7 @@ def case_sdc():
     t, r, rr, e, re = runner.results()
     i = np.arange(0, len(r))
     plt.plot(i, r, "^-", label="SDC")
+    runner.remove_files()
 
 
 def case_mlsdc(coarse_factor):
@@ -23,6 +24,7 @@ def case_mlsdc(coarse_factor):
     t, r, rr, e, re = runner.results()
     i = np.arange(0, len(r))
     plt.plot(i, r, "v-", label="MLSDC, coarse_factor={}".format(coarse_factor))
+    runner.remove_files()
 
 
 def case_mlsdc2(coarse_factor):
@@ -32,6 +34,7 @@ def case_mlsdc2(coarse_factor):
     t, r, rr, e, re = runner.results()
     i = np.arange(0, len(r))
     plt.plot(i, r, "^-", label="MLSDC, coarse_factor={}".format(coarse_factor))
+    runner.remove_files()
 
 
 case_sdc()

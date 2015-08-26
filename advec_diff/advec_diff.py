@@ -86,11 +86,13 @@ class AdvecDiffRunner:
         return np.loadtxt(file_name, unpack=True)
 
     def remove_files(self):
-        file_name = self.parameter_hash()
+        file_name = "bin/"+self.parameter_hash()
+        logging.debug("Remove: "+file_name)
         if os.path.exists(file_name):
             os.remove(file_name)
 
         file_name += "_coarse"
+        logging.debug("Remove: "+file_name)
         if os.path.exists(file_name):
             os.remove(file_name)
 
