@@ -3,9 +3,9 @@ import logging
 import numpy as np
 import os
 import os.path
-import subprocess
 import shlex
 import shutil
+import subprocess
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -13,9 +13,12 @@ logging.basicConfig(level=logging.DEBUG)
 class CallgrindResult:
     raw = None
 
+
 class GprofResult:
     raw = None
-    flat = None
+    prof = None
+    calls = None
+
 
 class AdvecDiffRunner:
     variant = "sdc"
@@ -80,21 +83,34 @@ class AdvecDiffRunner:
         name = self.parameter_hash() + ".callgrind"
         cmd = ["valgrind", "--tool=callgrind", "--callgrind-out-file=" + name] + self.cmd()
         logging.debug("Execute: " + " ".join(cmd))
-        subprocess.call(cmd, cwd="bin")
+        with open(os.devnull, "w") as f_null:
+            subprocess.call(cmd, cwd="bin", stderr=f_null)
         result = CallgrindResult()
         with open("bin/"+name) as f:
             result.raw = f.read()
         return result
 
     def run_gprof(self):
-        name = self.parameter_hash() + ".gprof"
+        name = self.parameter_hash() + ".gmon"
         cmd = self.cmd()
-        cmd[0] = "gprof_"+self.cmd()
-        subprocess.call(cmd)
-        shutil.move("bin/gmon.out", "bin/"+name)
+        cmd[0] = "./gprof_advec_diff_"+self.variant
+        logging.debug("Execute: " + " ".join(cmd))
+        subprocess.call(cmd, cwd="bin")
         result = GprofResult()
-        with open("bin/"+name) as f:
+
+        cmd = ["gprof", "-p", "-b", "./gprof_advec_diff_"+self.variant, "gmon.out"]
+        logging.debug("Execute: " + " ".join(cmd))
+        result.prof = subprocess.check_output(cmd, cwd="bin").decode().strip()
+
+        cmd = ["gprof", "-q", "-b", "./gprof_advec_diff_"+self.variant, "gmon.out"]
+        logging.debug("Execute: " + " ".join(cmd))
+        result.calls = subprocess.check_output(cmd, cwd="bin").decode().strip()
+
+        shutil.move("bin/gmon.out", "bin/"+name)
+        with open("bin/"+name, "rb") as f:
             result.raw = f.read()
+
+        return result
 
     def results(self):
         file_name = "bin/"+self.parameter_hash()
@@ -124,7 +140,7 @@ class AdvecDiffRunner:
         if os.path.exists(file_name):
             os.remove(file_name)
 
-        # entries = ["bin/"+e for e in os.listdir("bin") if os.path.isfile("bin/"+e)]
-        # for e in entries:
-        #     if re.match("^"+e+"\.\d+$", e):
-        #         os.remove(e)
+        file_name = "bin/"+self.parameter_hash()+".gmon"
+        logging.debug("Remove: "+file_name)
+        if os.path.exists(file_name):
+            os.remove(file_name)
