@@ -1,9 +1,11 @@
+import hashlib
+import logging
+import numpy as np
 import os
 import os.path
+import re
 import subprocess
-import hashlib
-import numpy as np
-import logging
+import shlex
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -37,35 +39,62 @@ class AdvecDiffRunner:
         h = hashlib.sha1(s.encode())
         return h.hexdigest()
 
+    def cmd(self):
+        file_name = self.parameter_hash()
+        cmd = (
+            "./advec_diff_{}"
+            " --dt {}"
+            " --tend {}"
+            " --num_iters {}"
+            " --num_dofs {}"
+            " --coarse_factor {}"
+            " --num_nodes {}"
+            " --abs_res_tol {}"
+            " --nu {}"
+            " --vel {}"
+            " --out_file {}"
+            " --nocolor"
+        ).format(
+            self.variant,
+            self.dt, self.t_end,
+            self.num_iters, self.num_dofs,
+            self.coarse_factor, self.num_nodes,
+            self.abs_res_tol, self.nu,
+            self.vel, file_name
+        )
+        return shlex.split(cmd)
+
     def run(self):
-        name = self.parameter_hash()
+        cmd = self.cmd()
 
-        cmd = [
-            "--dt", str(self.dt),
-            "--tend", str(self.t_end),
-            "--num_iters", str(self.num_iters),
-            "--num_dofs", str(self.num_dofs),
-            "--coarse_factor", str(self.coarse_factor),
-            "--num_nodes", str(self.num_nodes),
-            "--abs_res_tol", str(self.abs_res_tol),
-            "--nu", str(self.nu),
-            "--vel", str(self.vel),
-            "--out_file", name,
-            "--nocolor",
-        ]
-        cmd = ["bin/advec_diff_"+self.variant]+cmd
         logging.debug("Execute: "+" ".join(cmd))
-        subprocess.check_output(cmd)
+        subprocess.check_output(cmd, cwd="bin")
 
-        t, r, rr, e, re = np.loadtxt(name, unpack=True)
-        os.remove(name)
+    def callgrind(self):
+        pass
 
-        t_coarse = []
-        r_coarse = []
-        rr_coarse = []
-        e_coarse = []
-        re_coarse = []
-        if os.path.exists(name+"_coarse"):
-            t_coarse, r_coarse, rr_coarse, e_coarse, re_coarse = np.loadtxt(name+"_coarse", unpack=True)
-            os.remove(name+"_coarse")
-        return (t, r, rr, e, re, t_coarse, r_coarse, rr_coarse, e_coarse, re_coarse)
+    def results(self):
+        file_name = "bin/"+self.parameter_hash()
+        if not os.path.exists(file_name):
+            raise RuntimeError("File \"{}\" does not exist!".format(file_name))
+        return np.loadtxt(file_name, unpack=True)
+
+    def results_coarse(self):
+        file_name = "bin/"+self.parameter_hash()+"_coarse"
+        if not os.path.exists(file_name):
+            raise RuntimeError("File \"{}\" does not exist!".format(file_name))
+        return np.loadtxt(file_name, unpack=True)
+
+    def remove_files(self):
+        file_name = self.parameter_hash()
+        if os.path.exists(file_name):
+            os.remove(file_name)
+
+        file_name += "_coarse"
+        if os.path.exists(file_name):
+            os.remove(file_name)
+
+        # entries = ["bin/"+e for e in os.listdir("bin") if os.path.isfile("bin/"+e)]
+        # for e in entries:
+        #     if re.match("^"+e+"\.\d+$", e):
+        #         os.remove(e)
