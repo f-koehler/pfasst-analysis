@@ -1,4 +1,0 @@
-[submodule "pfasst"]
-	path = pfasst
-	url = https://github.com/f-koehler/PFASST.git
-	branch = analysis

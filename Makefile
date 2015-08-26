@@ -1,6 +1,6 @@
 PY=python3
 
-SCRIPTS=heat1d/coarse_factor.pdf heat1d/nodes.py heat1d/sdc_dt.py
+SCRIPTS=advec_diff/coarse_factor.pdf advec_diff/nodes.py # advec_diff/sdc_dt.py
 PLOTS=$(addprefix plot/,$(patsubst %.py,%.pdf,${SCRIPTS}))
 
 all: ${PLOTS}
