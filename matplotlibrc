@@ -1,9 +1,9 @@
 backend:        Qt5Agg
-text.usetex:    True
+# text.usetex:    True
 axes.grid:      True
 #figure.figsize: 6, 4.5
 #figure.dpi:     90
-pgf.texsystem:  lualatex
-pgf.preamble:   \\input{matplotlib.tex}
+# pgf.texsystem:  lualatex
+# pgf.preamble:   \\input{matplotlib.tex}
 #savefig.dpi:    120
 savefig.bbox:   tight

@@ -20,7 +20,7 @@ def case_mlsdc(coarse_factor):
     runner.coarse_factor = coarse_factor
     t1, r1, rr1, e1, re1, t2, r2, rr2, e2, re2 = runner.run()
     i = np.arange(0, len(r1))
-    plt.plot(i, r1, "v-", label="MLSDC, $\mathrm{coarse\_factor}="+str(coarse_factor)+"$")
+    plt.plot(i, r1, "v-", label="MLSDC, coarse_factor={}".format(coarse_factor))
     # i = np.arange(0, len(r2))
     # plt.plot(i, r2, "x-", label="MLSDC (Coarse), $\mathrm{coarse\_factor}="+str(coarse_factor)+"$")
 
@@ -30,7 +30,7 @@ def case_mlsdc2(coarse_factor):
     runner.coarse_factor = coarse_factor
     t1, r1, rr1, e1, re1, t2, r2, rr2, e2, re2 = runner.run()
     i = np.arange(0, len(r1))
-    plt.plot(i, r1, "^-", label="MLSDC, $\mathrm{coarse\_factor}="+str(coarse_factor)+"$")
+    plt.plot(i, r1, "^-", label="MLSDC, coarse_factor={}".format(coarse_factor))
     # i = np.arange(0, len(r2))
     # plt.plot(i, r2, "x-", label="MLSDC (Coarse), $\mathrm{coarse\_factor}="+str(coarse_factor)+"$")
 
@@ -39,14 +39,15 @@ case_sdc()
 case_mlsdc(1)
 case_mlsdc2(2)
 
-plt.title(r"AdvecDiff," +
-          r"$\mathrm{d}t="+str(runner.dt) +
-          r"$, $t_{\mathrm{end}}="+str(runner.t_end) +
-          r"$, $\mathrm{max\_iter}="+str(runner.num_iters) +
-          r"$, $\mathrm{dof}="+str(runner.num_dofs) +
-          r"$, $\mathrm{tol}=\num{"+str(runner.abs_res_tol) +
-          r"}$, $"+str(runner.num_nodes) +
-          r"$ Nodes")
+plt.title(
+    (
+        "AdvecDiff, dt={}, t_end={}, max_iter={}, dof={},\n"
+        "nu={}, vel={}, abs_res_tol={}, {} Nodes\n"
+    ).format(
+        runner.dt, runner.t_end, runner.num_iters, runner.num_dofs,
+        runner.nu, runner.vel, runner.abs_res_tol, runner.num_nodes
+    )
+)
 
 plt.xlabel("iteration")
 plt.ylabel("absolute residuals")

@@ -1,28 +1,29 @@
 import numpy as np
 from matplotlib import pyplot as plt
-import heat1d
+import advec_diff
 
-runner = heat1d.Heat1DRunner()
-runner.t_end = 0.5
+runner = advec_diff.AdvecDiffRunner()
+runner.t_end = 5.0
 
 def case(dt):
     runner.dt = dt
     t1, r1, rr1, e1, re1, t2, r2, rr2, e2, re2 = runner.run()
     uniq, inv = np.unique(t1, return_inverse=True)
-    plt.plot(uniq, np.bincount(inv), ".-", label="dt="+str(dt))
+    plt.plot(uniq, np.bincount(inv), "-", label="dt={}".format(dt))
 
-plt.title(r"SDC@Heat1D, "
-        +r"$t_{\mathrm{end}}="+str(runner.t_end)
-        +r"$, $\mathrm{max\_iter}="+str(runner.num_iters)
-        +r"$, $\mathrm{dof}="+str(runner.num_dofs)
-        +r"$, $\mathrm{tol}=\num{"+str(runner.abs_res_tol)
-        +r"}$, $"+str(runner.num_nodes)
-        +r"$ Nodes"
+plt.title(
+    (
+        "SDC@AdvecDiff, t_end={}, max_iter={}, dof={},\n"
+        "nu={}, vel={}, abs_res_tol={}, {} Nodes\n"
+    ).format(
+        runner.t_end, runner.num_iters, runner.num_dofs,
+        runner.nu, runner.vel, runner.abs_res_tol, runner.num_nodes
+    )
 )
 
-plt.xlabel("needed iterations")
-plt.ylabel("res")
-plt.ylim(0, 8)
+plt.xlabel("t")
+plt.ylabel("required iterations")
+plt.ylim(0, 10)
 
 case(0.001)
 case(0.005)
@@ -30,4 +31,4 @@ case(0.01)
 case(0.025)
 
 plt.legend()
-plt.savefig("plot/heat1d/sdc_dt.pdf")
+plt.savefig("plot/advec_diff/sdc_dt.pdf")

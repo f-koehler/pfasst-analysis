@@ -18,9 +18,11 @@ class AdvecDiffRunner:
     coarse_factor = 1
     num_nodes = 3
     abs_res_tol = 1e-10
+    nu = 0.02
+    vel = 1
 
     def parameter_hash(self):
-        s = "{};{};{};{};{};{};{};{}".format(
+        s = "{};{};{};{};{};{};{};{};{};{}".format(
             self.variant,
             self.dt,
             self.t_end,
@@ -28,7 +30,9 @@ class AdvecDiffRunner:
             self.num_dofs,
             self.coarse_factor,
             self.num_nodes,
-            self.abs_res_tol
+            self.abs_res_tol,
+            self.nu,
+            self.vel
         )
         h = hashlib.sha1(s.encode())
         return h.hexdigest()
@@ -44,6 +48,8 @@ class AdvecDiffRunner:
             "--coarse_factor", str(self.coarse_factor),
             "--num_nodes", str(self.num_nodes),
             "--abs_res_tol", str(self.abs_res_tol),
+            "--nu", str(self.nu),
+            "--vel", str(self.vel),
             "--out_file", name,
             "--nocolor",
         ]

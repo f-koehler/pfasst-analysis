@@ -39,6 +39,15 @@ plt.title(r"AdvecDiff, " +
           r"$, $\mathrm{dof}=" + str(runner.num_dofs) +
           r"$, $\mathrm{tol}=\num{" + str(runner.abs_res_tol) +
           r"}$")
+plt.title(
+    (
+        "AdvecDiff, dt={}, t_end={}, max_iter={},\n"
+        "dof={}, nu={}, vel={}, abs_res_tol={}\n"
+    ).format(
+        runner.dt, runner.t_end, runner.num_iters, runner.num_dofs,
+        runner.nu, runner.vel, runner.abs_res_tol
+    )
+)
 
 case_sdc(3)
 case_sdc(5)
