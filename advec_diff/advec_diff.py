@@ -98,11 +98,11 @@ class AdvecDiffRunner:
         subprocess.call(cmd, cwd="bin")
         result = GprofResult()
 
-        cmd = ["gprof", "-p", "-b", "./gprof_advec_diff_"+self.variant, "gmon.out"]
+        cmd = ["gprof", "-p", "./gprof_advec_diff_"+self.variant, "gmon.out"]
         logging.debug("Execute: " + " ".join(cmd))
         result.prof = subprocess.check_output(cmd, cwd="bin").decode().strip()
 
-        cmd = ["gprof", "-q", "-b", "./gprof_advec_diff_"+self.variant, "gmon.out"]
+        cmd = ["gprof", "-q", "./gprof_advec_diff_"+self.variant, "gmon.out"]
         logging.debug("Execute: " + " ".join(cmd))
         result.calls = subprocess.check_output(cmd, cwd="bin").decode().strip()
 
