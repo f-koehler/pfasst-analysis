@@ -1,0 +1,20 @@
+#@job_name              = MPI_PFASST_test
+#@comment               = "a little test of PFASST with MPI"
+#@output                = mpi_pfasst_test_$(jobid)_$(stepid).out
+#@error                 = mpi_pfasst_test_$(jobid)_$(stepid).err
+#@environment           = COPY_ALL
+#@job_type              = bluegene
+#@notification          = NEVER
+#@wall_clock_limit      = 00:10:00
+#@bg_size               = 1
+#@bg_connectivity       = TORUS
+#@queue
+module load gcc
+module load UNITE
+module load scorep/1.4.3-beta-gnu
+export SCOREP_ENABLE_PROFILING=1
+export SCOREP_ENABLE_TRACING=0
+export SCOREP_EXPERIMENT_DIRECTORY=scorep_profile
+runjob --np 4 --ranks-per-node 4 : \
+ advec_diff_pfasst \
+ -q --tend 0.08 --dt 0.01 --num_iter 8 --abs_res_tol 1e-10 --nocolor

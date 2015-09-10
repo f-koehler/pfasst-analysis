@@ -1,0 +1,14 @@
+#!/bin/bash 
+#SBATCH -J advec_diff_pfasst_{{ nodes }}_{{ tasks }}_{{ tend }}
+#SBATCH --nodes={{ nodes }}
+#SBATCH --tasks={{ tasks }}
+#SBATCH --partition=devel
+#SBATCH -o run.out 
+#SBATCH -e run.err 
+#SBATCH --ntasks-per-node={{ tasks_per_node }}
+#SBATCH --time=00:10:00
+
+module load intel-para/2015.07
+module load Boost/1.58.0-Python-2.7.10
+
+srun ../advec_diff_pfasst --dt 0.01 --tend {{ tend }} --num_iters 30 --abs_res_tol 1e-10 --nocolor

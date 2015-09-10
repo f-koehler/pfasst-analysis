@@ -1,0 +1,5 @@
+SCOREP_REGION_NAMES_BEGIN
+	EXCLUDE *
+	INCLUDE pfasst::TwoLevelPfasst*
+            pfasst::comm::*
+SCOREP_REGION_NAMES_END

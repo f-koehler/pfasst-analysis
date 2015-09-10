@@ -1,0 +1,8 @@
+SCOREP_REGION_NAMES_BEGIN
+	EXCLUDE *
+	INCLUDE pfasst::*
+    EXCLUDE pfasst::encap::*
+            pfasst::quadrature::*
+            pfasst::config::*
+            pfasst::Status*
+SCOREP_REGION_NAMES_END
