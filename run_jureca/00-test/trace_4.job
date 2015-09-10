@@ -1,0 +1,22 @@
+#!/bin/bash 
+#SBATCH -J trace_4
+#SBATCH --nodes=1
+#SBATCH --tasks=4
+#SBATCH --partition=devel
+#SBATCH -o trace_4.out 
+#SBATCH -e trace_4.err 
+#SBATCH --ntasks-per-node=4
+#SBATCH --time=00:10:00
+
+module load intel-para/2015.07
+module load Score-P/1.4.2
+module load Boost/1.58.0-Python-2.7.10
+
+export SCOREP_ENABLE_PROFILING=0
+export SCOREP_ENABLE_TRACING=1
+export SCOREP_EXPERIMENT_DIRECTORY=trace_4
+export SCOREP_MPI_ENABLE_GROUPS=all
+export SCOREP_TOTAL_MEMORY=128M
+export SCOREP_PROFILING_MAX_CALLPATH_DEPTH=45
+export SCOREP_FILTERING_FILE=filter.file
+srun advec_diff_pfasst --dt 0.01 --tend 0.08 --num_iters 20 --abs_res_tol 1e-10 --nocolor

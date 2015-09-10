@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cmake \
+    -Dpfasst_BUILD_TESTS=OFF \
+    -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain_jureca.cmake \
+    -DEigen3_INCLUDE_PATH=~/jureca/include/eigen3 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
