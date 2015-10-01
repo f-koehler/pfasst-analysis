@@ -1,0 +1,56 @@
+11:33:41,89 [DEFAULT   , INFO , MPI    1] PFASST++ version v0.5.0-rc1-145-g8bd568d-dirty
+11:33:41,01 [LVL_COARSE, INFO , MPI    1] using as quadrature: Gauss-Radau (right) on [0.0, 1.0] with 3 nodes and an expected error of 2.77556e-17
+11:33:41,03 [LVL_FINE  , INFO , MPI    1] using as quadrature: Gauss-Radau (right) on [0.0, 1.0] with 3 nodes and an expected error of 2.77556e-17
+11:33:41,10 [PFASST    , INFO , MPI    1] 
+11:33:41,11 [PFASST    , INFO , MPI    1] Time Step 2 of 4 (i.e. t0=0.05)
+11:33:41,11 [PFASST    , INFO , MPI    1] 
+11:33:41,11 [PFASST    , INFO , MPI    1] PFASST Prediction step
+11:33:41,11 [PFASST    , INFO , MPI    1] Predicting on COARSE level
+11:33:41,12 [LVL_COARSE, INFO , MPI    1] Predicting from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:41,27 [PFASST    , INFO , MPI    1] Sweeping on COARSE level
+11:33:41,54 [LVL_COARSE, INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:41,67 [PFASST    , INFO , MPI    1] Sweeping on FINE level
+11:33:41,75 [LVL_FINE  , INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:41,67 [PFASST    , INFO , MPI    1] FINE sweeper has not yet converged and additional iterations to do.
+11:33:41,77 [LVL_FINE  , INFO , MPI    1]   t[3]=0.10000      |abs residual| = 7.19050e-04      |rel residual| = 7.70921e-04
+11:33:41,77 [PFASST    , INFO , MPI    1] 
+11:33:41,77 [PFASST    , INFO , MPI    1] Iteration 1
+11:33:41,80 [PFASST    , INFO , MPI    1] Sweeping on COARSE level
+11:33:42,07 [LVL_COARSE, INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:42,48 [PFASST    , INFO , MPI    1] Sweeping on FINE level
+11:33:42,51 [LVL_FINE  , INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:42,40 [PFASST    , INFO , MPI    1] FINE sweeper has not yet converged and additional iterations to do.
+11:33:42,45 [LVL_FINE  , INFO , MPI    1]   t[3]=0.10000      |abs residual| = 5.59308e-05      |rel residual| = 6.15894e-05
+11:33:42,45 [PFASST    , INFO , MPI    1] 
+11:33:42,45 [PFASST    , INFO , MPI    1] Iteration 2
+11:33:42,45 [PFASST    , INFO , MPI    1] Sweeping on COARSE level
+11:33:42,72 [LVL_COARSE, INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:43,06 [PFASST    , INFO , MPI    1] Sweeping on FINE level
+11:33:43,09 [LVL_FINE  , INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:43,98 [PFASST    , INFO , MPI    1] FINE sweeper has not yet converged and additional iterations to do.
+11:33:43,03 [LVL_FINE  , INFO , MPI    1]   t[3]=0.10000      |abs residual| = 3.41739e-07      |rel residual| = 3.76330e-07
+11:33:43,03 [PFASST    , INFO , MPI    1] 
+11:33:43,03 [PFASST    , INFO , MPI    1] Iteration 3
+11:33:43,03 [PFASST    , INFO , MPI    1] Sweeping on COARSE level
+11:33:43,30 [LVL_COARSE, INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:44,64 [PFASST    , INFO , MPI    1] Sweeping on FINE level
+11:33:44,66 [LVL_FINE  , INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:44,55 [PFASST    , INFO , MPI    1] FINE sweeper has not yet converged and additional iterations to do.
+11:33:44,60 [LVL_FINE  , INFO , MPI    1]   t[3]=0.10000      |abs residual| = 8.48892e-10      |rel residual| = 9.34818e-10
+11:33:44,60 [PFASST    , INFO , MPI    1] 
+11:33:44,60 [PFASST    , INFO , MPI    1] Iteration 4
+11:33:44,60 [PFASST    , INFO , MPI    1] Sweeping on COARSE level
+11:33:44,87 [LVL_COARSE, INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:45,80 [PFASST    , INFO , MPI    1] Sweeping on FINE level
+11:33:45,83 [LVL_FINE  , INFO , MPI    1] Sweeping from t=0.05000 over 3 nodes to t=0.10000 (dt=0.05000)
+11:33:45,45 [PFASST    , WARN , MPI    1] previous process has converged; this process not
+11:33:45,71 [PFASST    , INFO , MPI    1] FINE sweeper has converged as well as previous process.
+11:33:45,76 [LVL_FINE  , INFO , MPI    1]   t[3]=0.10000      |abs residual| = 4.64185e-12      |rel residual| = 5.11171e-12
+11:33:45,76 [PFASST    , INFO , MPI    1] 
+11:33:45,76 [PFASST    , INFO , MPI    1] Time Step done.
+11:33:45,03 [PFASST    , INFO , MPI    1] Number Iterations: 4
+11:33:45,03 [PFASST    , INFO , MPI    1] Absolute Residual: 4.64185e-12
+11:33:45,03 [PFASST    , INFO , MPI    1] Relative Residual: 5.11171e-12
+11:33:45,03 [PFASST    , WARN , MPI    1] Not advancing 4 time steps with dt=0.05 to t=0.25 as it will exceed T_end=0.2 by 0.05
+11:33:45,03 [PFASST    , INFO , MPI    1] 
+11:33:45,03 [PFASST    , INFO , MPI    1] Run Finished.
