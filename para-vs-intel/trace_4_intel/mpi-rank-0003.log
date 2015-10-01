@@ -1,0 +1,70 @@
+11:33:41,89 [DEFAULT   , INFO , MPI    3] PFASST++ version v0.5.0-rc1-145-g8bd568d-dirty
+11:33:41,01 [LVL_COARSE, INFO , MPI    3] using as quadrature: Gauss-Radau (right) on [0.0, 1.0] with 3 nodes and an expected error of 2.77556e-17
+11:33:41,03 [LVL_FINE  , INFO , MPI    3] using as quadrature: Gauss-Radau (right) on [0.0, 1.0] with 3 nodes and an expected error of 2.77556e-17
+11:33:41,10 [PFASST    , INFO , MPI    3] 
+11:33:41,11 [PFASST    , INFO , MPI    3] Time Step 4 of 4 (i.e. t0=0.15)
+11:33:41,11 [PFASST    , INFO , MPI    3] 
+11:33:41,11 [PFASST    , INFO , MPI    3] PFASST Prediction step
+11:33:41,11 [PFASST    , INFO , MPI    3] Predicting on COARSE level
+11:33:41,12 [LVL_COARSE, INFO , MPI    3] Predicting from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:41,27 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:41,54 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:41,71 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:41,98 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:41,14 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:41,41 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:41,53 [PFASST    , INFO , MPI    3] Sweeping on FINE level
+11:33:41,60 [LVL_FINE  , INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:41,53 [PFASST    , INFO , MPI    3] FINE sweeper has not yet converged and additional iterations to do.
+11:33:41,62 [LVL_FINE  , INFO , MPI    3]   t[3]=0.20000      |abs residual| = 4.87689e-04      |rel residual| = 1.18089e-03
+11:33:41,62 [PFASST    , INFO , MPI    3] 
+11:33:41,62 [PFASST    , INFO , MPI    3] Iteration 1
+11:33:42,67 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:42,95 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:42,58 [PFASST    , INFO , MPI    3] Sweeping on FINE level
+11:33:42,61 [LVL_FINE  , INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:42,93 [PFASST    , INFO , MPI    3] FINE sweeper has not yet converged and additional iterations to do.
+11:33:42,99 [LVL_FINE  , INFO , MPI    3]   t[3]=0.20000      |abs residual| = 4.77669e-06      |rel residual| = 1.16001e-05
+11:33:42,99 [PFASST    , INFO , MPI    3] 
+11:33:42,99 [PFASST    , INFO , MPI    3] Iteration 2
+11:33:43,31 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:43,58 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:43,16 [PFASST    , INFO , MPI    3] Sweeping on FINE level
+11:33:43,19 [LVL_FINE  , INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:43,51 [PFASST    , INFO , MPI    3] FINE sweeper has not yet converged and additional iterations to do.
+11:33:43,57 [LVL_FINE  , INFO , MPI    3]   t[3]=0.20000      |abs residual| = 1.11973e-06      |rel residual| = 2.71572e-06
+11:33:43,57 [PFASST    , INFO , MPI    3] 
+11:33:43,57 [PFASST    , INFO , MPI    3] Iteration 3
+11:33:43,89 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:44,16 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:44,74 [PFASST    , INFO , MPI    3] Sweeping on FINE level
+11:33:44,77 [LVL_FINE  , INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:44,08 [PFASST    , INFO , MPI    3] FINE sweeper has not yet converged and additional iterations to do.
+11:33:44,14 [LVL_FINE  , INFO , MPI    3]   t[3]=0.20000      |abs residual| = 7.61536e-09      |rel residual| = 1.84701e-08
+11:33:44,14 [PFASST    , INFO , MPI    3] 
+11:33:44,14 [PFASST    , INFO , MPI    3] Iteration 4
+11:33:44,46 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:44,73 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:45,31 [PFASST    , INFO , MPI    3] Sweeping on FINE level
+11:33:45,33 [LVL_FINE  , INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:45,98 [PFASST    , WARN , MPI    3] previous process has converged; this process not
+11:33:45,24 [PFASST    , INFO , MPI    3] previous process has converged but FINE sweeper not yet.
+11:33:45,24 [PFASST    , INFO , MPI    3] FINE sweeper has not yet converged and additional iterations to do.
+11:33:45,29 [LVL_FINE  , INFO , MPI    3]   t[3]=0.20000      |abs residual| = 1.96606e-10      |rel residual| = 4.76844e-10
+11:33:45,29 [PFASST    , INFO , MPI    3] 
+11:33:45,29 [PFASST    , INFO , MPI    3] Iteration 5
+11:33:45,29 [PFASST    , WARN , MPI    3] previous process doesn't send any coarse data any more
+11:33:45,29 [PFASST    , INFO , MPI    3] Sweeping on COARSE level
+11:33:45,55 [LVL_COARSE, INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:45,73 [PFASST    , INFO , MPI    3] Sweeping on FINE level
+11:33:45,76 [LVL_FINE  , INFO , MPI    3] Sweeping from t=0.15000 over 3 nodes to t=0.20000 (dt=0.05000)
+11:33:46,64 [PFASST    , INFO , MPI    3] FINE sweeper has converged as well as previous process.
+11:33:46,68 [LVL_FINE  , INFO , MPI    3]   t[3]=0.20000      |abs residual| = 1.00548e-12      |rel residual| = 2.43866e-12
+11:33:46,69 [PFASST    , INFO , MPI    3] 
+11:33:46,69 [PFASST    , INFO , MPI    3] Time Step done.
+11:33:46,69 [PFASST    , INFO , MPI    3] Number Iterations: 5
+11:33:46,69 [PFASST    , INFO , MPI    3] Absolute Residual: 1.04499e-12
+11:33:46,69 [PFASST    , INFO , MPI    3] Relative Residual: 2.43866e-12
+11:33:46,69 [PFASST    , WARN , MPI    3] Not advancing 4 time steps with dt=0.05 to t=0.35 as it will exceed T_end=0.2 by 0.15
+11:33:46,69 [PFASST    , INFO , MPI    3] 
+11:33:46,69 [PFASST    , INFO , MPI    3] Run Finished.
