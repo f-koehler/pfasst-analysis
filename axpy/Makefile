@@ -8,7 +8,7 @@ naive.pdf: naive.callgrind
 	gprof2dot ${OPTIONS} $< | dot -Tpdf -o $@
 	pdfcrop --hires $@ $@
 std_transform_iterators.pdf: std_transform_iterators.callgrind
-	gprof2dot ${OPTIONS} $< | dot -Tpdf -o $@
+	gprof2dot ${OPTIONS} $< | dot -x -Tpdf -o $@
 	pdfcrop --hires $@ $@
 
 .PHONY: clean
